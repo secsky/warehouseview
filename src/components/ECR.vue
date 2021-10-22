@@ -117,7 +117,7 @@ export default {
           .post(`http://${location.host}/ecr`, { keyword: this.keyword })
           .then((response) => {
             if (response.data === "tooshort") {
-              this.$message.warning("编码长度不足!");
+              this.$message.warning("编码长度不对!");
               return;
             }
             if (response.data.length === 0) {
@@ -185,7 +185,7 @@ export default {
           .post(`http://${location.host}/zw/detail`, { cinvcode: this.keyword })
           .then((response) => {
             if (response.data === "tooshort") {
-              this.$message.warning("编码长度不足!");
+              this.$message.warning("编码长度不对!");
               return;
             }
             if (response.data.length === 0) {
