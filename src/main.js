@@ -8,6 +8,7 @@ import Welcome from "./components/Welcome.vue";
 import OilPrice from "./components/OilPrice.vue";
 import DispatchFix from "./components/DispatchFix.vue";
 import ECR from "./components/ECR.vue";
+import PODetails from "./components/PODetails.vue";
 // import dayjs from "dayjs"
 // import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
@@ -25,7 +26,8 @@ const routes = [
   { path: '/', component: Welcome },
   { path: '/oil', component: OilPrice },
   { path: '/dispatchfix', component: DispatchFix },
-  { path: '/ecr', component: ECR }
+  { path: '/ecr', component: ECR },
+  { path: '/podetails', component: PODetails }
 ]
 const router = new VueRouter({
   routes // (缩写) 相当于 routes: routes

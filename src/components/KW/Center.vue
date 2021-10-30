@@ -33,6 +33,7 @@
 export default {
   data() {
     return {
+      autoreload: true,
       info: [],
       //   kw: {},
       keyword: "",
@@ -113,7 +114,7 @@ export default {
         .then((response) => {
           this.info = response.data;
         })
-        .catch(error=>this.$message.warning('数据加载失败!'));
+        .catch((error) => this.$message.warning("数据加载失败!"));
     },
     getchxx(cinvcode, cinvname) {
       // console.log(cinvcode, cinvname);
@@ -134,13 +135,22 @@ export default {
     },
   },
   mounted() {
-    this.$root.$on("setkeyword",(keyword)=>{this.keyword=keyword,this.$root.$emit("setSearchCount", this.flength);});
+    this.$root.$on("setkeyword", (keyword) => {
+      (this.keyword = keyword),
+        this.$root.$emit("setSearchCount", this.flength);
+    });
     setInterval(() => {
-      this.reload();
+      if (this.autoreload) this.reload();
     }, 60000);
   },
-  activated(){
-    if(this.info.length===0) this.reload();
+  activated() {
+    if (this.info.length === 0) this.reload();
+    console.log("库位图自动刷新");
+    this.autoreload = true;
+  },
+  deactivated() {
+    console.log("关闭库位图自动刷新");
+    this.autoreload = false;
   },
   beforeDestroy() {
     this.$root.$off("setkeyword");

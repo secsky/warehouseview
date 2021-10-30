@@ -5,5 +5,6 @@
     <a-breadcrumb-item><router-link to="/dispatchfix">发运单修复</router-link></a-breadcrumb-item>
     <a-breadcrumb-item><router-link to="/kw">库位图</router-link></a-breadcrumb-item>
     <a-breadcrumb-item><router-link to="/ecr">ECR查询</router-link></a-breadcrumb-item>
+    <a-breadcrumb-item><router-link to="/podetails">采购情况表</router-link></a-breadcrumb-item>
   </a-breadcrumb>
 </template>
