@@ -1,15 +1,23 @@
 <template>
   <div class="main">
     <Top title="采购情况表" version="alpha" />
-    <a-table
-      :columns="columns"
-      :data-source="rows"
-      size="middle"
-      :pagination="pagination"
-      width="800px"
-      :rowKey="(record, index) => record.idx"
-    >
-    </a-table>
+    <a-tabs default-active-key="1" tab-position="left">
+      <a-tab-pane key="1" tab="采购订单详情">
+        <a-table
+          :columns="columns"
+          :data-source="rows"
+          size="middle"
+          :pagination="pagination"
+          width="800px"
+          :rowKey="(record, index) => record.idx"
+        >
+        </a-table>
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="采购员负载分析" force-render>
+        Content of Tab Pane 2
+      </a-tab-pane>
+      <a-tab-pane key="3" tab="Tab 3"> Content of Tab Pane 3 </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 

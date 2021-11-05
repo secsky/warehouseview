@@ -150,8 +150,10 @@ export default {
                   response.data[0]["预计出库量"] === null
                     ? 0
                     : response.data[0]["预计出库量"];
-                this.sumword = `母件:${this.keyword} 预计可用量${ruku}，预计出库量${chuku}，净量${
-                  (ruku*1000 - chuku*1000)/1000
+                this.sumword = `母件:${
+                  this.keyword
+                } 预计可用量${ruku}，预计出库量${chuku}，净量${
+                  (ruku * 1e16 - chuku * 1e16) / 1e16
                 }`;
               });
           })
@@ -167,8 +169,8 @@ export default {
                   row["预计可用量"] = response.data[0]["预计可用量"];
                   row["预计出库量"] = response.data[0]["预计出库量"];
                   row["净量"] =
-                    (row["预计可用量"] * 1000 - row["预计出库量"] * 1000) /
-                    1000;
+                    (row["预计可用量"] * 1e16 - row["预计出库量"] * 1e16) /
+                    1e16;
                   this.show = ++count === this.rows.length ? false : true;
                 });
               // count++;
@@ -212,8 +214,10 @@ export default {
               response.data[0]["预计出库量"] === null
                 ? 0
                 : response.data[0]["预计出库量"];
-            this.childsumword = `子件:${this.keyword} 预计可用量${ruku}，预计出库量${chuku}，净量${
-              (ruku*1000 - chuku*1000)/1000
+            this.childsumword = `子件:${
+              this.keyword
+            } 预计可用量${ruku}，预计出库量${chuku}，净量${
+              (ruku * 1e16 - chuku * 1e16) / 1e16
             }`;
           });
       }

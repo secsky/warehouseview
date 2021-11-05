@@ -1,14 +1,5 @@
 <template>
   <div>
-    <!-- <a-button type="primary" @click="visible = true"> Open </a-button> -->
-    <!-- <a-drawer
-      title="Basic Drawer"
-      placement="right"
-      :closable="false"
-      :visible="visible"
-      :after-visible-change="afterVisibleChange"
-      @close="onClose"
-    > -->
     <a-drawer
       :title="'库位号：' + kw.id + '@' + kw.name"
       placement="right"
@@ -23,6 +14,9 @@
         size="middle"
         :pagination="pagination"
       >
+        <!-- <template slot="title">
+          <a-button type="primary" @click="Fetchinfo"> 获取 </a-button>
+        </template> -->
         <template slot="cinvcode" slot-scope="text">
           <a href="javascript:;" @click.prevent="OpenModelDialog(text)">{{
             text
@@ -62,27 +56,56 @@ export default {
           title: "数量",
           dataIndex: "quantity",
         },
+        ,
+        {
+          title: "理论量",
+          dataIndex: "realquantity",
+        },
       ],
       kw: {},
       visible: false,
     };
   },
   methods: {
-    // afterVisibleChange(val) {
-    //   console.log('visible', val);
-    // },
-    // showDrawer() {
-    //   this.visible = true;
-    // },
-    // onClose() {
-    //   this.visible = false;
-    // },
+    Fetchinfo() {
+      // console.log(this.kw.name === "闲置");
+      if (this.kw.name === "闲置") return;
+      this.axios
+        .post(`http://${location.host}/kw/order`, {
+          info: this.kw.name,
+        })
+        .then((response) => {
+          // console.log(response.data);
+          // this.chxx = response.data;
+          let data = response.data;
+          if (!Array.isArray(data)) return;
+          for (let row of data) {
+            let t = this.kw.data.filter((current, index, arr) => {
+              return current.cinvcode === row.子件编码;
+            });
+            if (t.length > 0) t[0]["realquantity"] = row.数量;
+            else
+              this.kw.data.push({
+                cinvcode: row.子件编码,
+                cinvname: row.子件名称,
+                quantity: 0,
+                realquantity: row.数量,
+              });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     OpenModelDialog(cinvcode) {
       this.$root.$emit("OpenModelDialog", [this.kw.id, cinvcode]);
     },
     Setkw(kw) {
-      this.kw = kw;
+      this.kw = { ...kw };
+      this.kw.data = [...kw.data];
+      // console.log("@@@", this.kw.data === kw.data);
       this.visible = true;
+      this.Fetchinfo();
     },
   },
   mounted() {

@@ -12,9 +12,9 @@ import PODetails from "./components/PODetails.vue";
 // import dayjs from "dayjs"
 // import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
-import {Drawer,Modal,Table,Tag,Input,Badge,ConfigProvider,Breadcrumb,Icon,message,Spin,Tabs} from 'ant-design-vue'
+import { Drawer, Modal, Table, Tag, Input, Badge, ConfigProvider, Breadcrumb, Icon, message, Spin, Tabs, Button } from 'ant-design-vue'
 Vue.use(VueRouter)
-Vue.use(Drawer).use(Modal).use(Table).use(Tag).use(Input).use(Badge).use(ConfigProvider).use(Breadcrumb).use(Icon).use(Spin).use(Tabs)
+Vue.use(Drawer).use(Modal).use(Table).use(Tag).use(Input).use(Badge).use(ConfigProvider).use(Breadcrumb).use(Icon).use(Spin).use(Tabs).use(Button)
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 Vue.prototype.$message = message;
