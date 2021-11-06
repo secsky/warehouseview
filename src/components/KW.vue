@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Top title="BOM库目视图" version="beta1.2" />
+    <Top title="BOM库目视图" version="beta1.3" />
     <SearchBar />
     <Center />
     <SideBar />

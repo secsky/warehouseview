@@ -9,6 +9,8 @@ import OilPrice from "./components/OilPrice.vue";
 import DispatchFix from "./components/DispatchFix.vue";
 import ECR from "./components/ECR.vue";
 import PODetails from "./components/PODetails.vue";
+import Print from "../plugin/print.js"
+Vue.use(Print)
 // import dayjs from "dayjs"
 // import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'

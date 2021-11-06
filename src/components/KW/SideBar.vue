@@ -1,12 +1,18 @@
 <template>
   <div>
     <a-drawer
+      ref="printCons"
       :title="'库位号：' + kw.id + '@' + kw.name"
       placement="right"
       :visible="visible"
       @close="visible = false"
       width="400px"
-    >
+      ><a href="javascript:;" title="仅供参考">
+        <a-tag color="blue" v-if="msg !== ''">
+          {{ msg }}
+        </a-tag></a
+      >
+      <!-- <button @click="goPrint">打印</button> -->
       <a-table
         :columns="columns"
         :data-source="kw.data"
@@ -14,9 +20,7 @@
         size="middle"
         :pagination="pagination"
       >
-        <!-- <template slot="title">
-          <a-button type="primary" @click="Fetchinfo"> 获取 </a-button>
-        </template> -->
+        <!-- <template slot="title"> {{ msg }} </template> -->
         <template slot="cinvcode" slot-scope="text">
           <a href="javascript:;" @click.prevent="OpenModelDialog(text)">{{
             text
@@ -64,20 +68,25 @@ export default {
       ],
       kw: {},
       visible: false,
+      msg: "",
     };
   },
   methods: {
+    goPrint() {
+      console.log(this);
+      this.$print(this.$refs.printCons);
+      // print(this.$refs.printCons.$el);
+    },
     Fetchinfo() {
-      // console.log(this.kw.name === "闲置");
+      this.msg = "";
       if (this.kw.name === "闲置") return;
       this.axios
         .post(`http://${location.host}/kw/order`, {
           info: this.kw.name,
         })
         .then((response) => {
-          // console.log(response.data);
-          // this.chxx = response.data;
-          let data = response.data;
+          this.msg = `订单号:${response.data.csocode} 成品:${response.data.cinvcode} 数量:${response.data.quantity} 计数:${response.data.counts}`;
+          let data = response.data.data;
           if (!Array.isArray(data)) return;
           for (let row of data) {
             let t = this.kw.data.filter((current, index, arr) => {
@@ -113,3 +122,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+.msg {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: red;
+  font-weight: 700;
+  font-size: 10px;
+}
+</style>
