@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Top title="ECR变更查询" version="alpha" />
+    <Top title="库存展望查询" version="alpha" />
     <a-input-search
       :placeholder="placeholdertip"
       style="width: 200px"
@@ -152,9 +152,9 @@ export default {
                     : response.data[0]["预计出库量"];
                 this.sumword = `母件:${
                   this.keyword
-                } 预计可用量${ruku}，预计出库量${chuku}，净量${
-                  (ruku * 1e16 - chuku * 1e16) / 1e16
-                }`;
+                } 预计可用量${ruku}，预计出库量${chuku}，净量${parseFloat(
+                  (ruku - chuku).toFixed(5)
+                )}`;
               });
           })
           .then(() => {
@@ -168,9 +168,9 @@ export default {
                 .then((response) => {
                   row["预计可用量"] = response.data[0]["预计可用量"];
                   row["预计出库量"] = response.data[0]["预计出库量"];
-                  row["净量"] =
-                    (row["预计可用量"] * 1e16 - row["预计出库量"] * 1e16) /
-                    1e16;
+                  row["净量"] = parseFloat(
+                    (row["预计可用量"] - row["预计出库量"]).toFixed(5)
+                  );
                   this.show = ++count === this.rows.length ? false : true;
                 });
               // count++;

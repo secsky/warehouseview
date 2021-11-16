@@ -85,7 +85,10 @@ export default {
           info: this.kw.name,
         })
         .then((response) => {
-          this.msg = `订单号:${response.data.csocode} 成品:${response.data.cinvcode} 数量:${response.data.quantity} 计数:${response.data.counts}`;
+          this.msg =
+            response.data.csocode === undefined
+              ? "查询不到订单信息!"
+              : `订单号:${response.data.csocode} 成品:${response.data.cinvcode} 数量:${response.data.quantity} 计数:${response.data.counts}`;
           let data = response.data.data;
           if (!Array.isArray(data)) return;
           for (let row of data) {
