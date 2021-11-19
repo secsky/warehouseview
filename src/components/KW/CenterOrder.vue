@@ -33,7 +33,7 @@
         class="货位"
         v-for="(value, key) in v.data"
         :style="style(key, value)"
-        @click="m(key)"
+        @click="m(value.name, key)"
         :key="key"
       >
         <div class="货位编码">{{ key }}</div>
@@ -49,10 +49,7 @@ export default {
     return {
       autoreload: true,
       info: [],
-      //   kw: {},
       keyword: "",
-      // chxx: { name: '', code: '', data: { title: [], rows: [] } },
-      //   chxx: { data: {} },
       counter: 0,
     };
   },
@@ -187,11 +184,12 @@ export default {
       if (tmp[k]["data"] === undefined) tmp[k]["data"] = {};
       tmp[k]["data"][x] = this.info[k].data[x];
     },
-    m(x) {
+    m(x, key) {
       let id = x;
+      console.log(id)
       let kw = {};
-      kw = this.finfo[id.substring(0, 2)]["data"][id];
-      kw["id"] = id;
+      kw = this.finfo[id.split('/')[0]]["data"][key];
+      kw["id"] = key;
       this.$root.$emit("click", kw);
     },
     style(key, value) {
@@ -208,7 +206,7 @@ export default {
     },
     reload() {
       this.axios
-        .post(`http://${location.host}/kwapi`)
+        .post(`http://${location.host}/kworderapi`)
         .then((response) => {
           this.info = response.data;
         })
@@ -256,7 +254,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @keyframes showdot {
   0% {
   }
@@ -274,22 +272,7 @@ export default {
     overflow: scroll;
   }
 }
-/* 滚动条大小 */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 10%;
-}
 
-::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-  border-radius: 10px;
-}
-
-/* 滚动条的滑轨背景颜色 */
-::-webkit-scrollbar-thumb {
-  background-color: #a4a9c1;
-  border-radius: 10px;
-}
 .dot {
   padding: 5px;
   height: 10px;
@@ -332,11 +315,10 @@ export default {
 }
 
 .货架 {
-  width: 38px;
+  width: 70px;
   color: white;
   font-size: 26px;
   background-color: gray;
-  /* box-shadow: 0 0 5px rgba(0,0,0,0.4); */
 }
 
 .货位 .货位编码 {

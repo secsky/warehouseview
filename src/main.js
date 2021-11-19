@@ -4,6 +4,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import KW from "./components/KW.vue";
+import KWORDER from "./components/KWORDER.vue";
 import Welcome from "./components/Welcome.vue";
 import OilPrice from "./components/OilPrice.vue";
 import DispatchFix from "./components/DispatchFix.vue";
@@ -29,7 +30,8 @@ const routes = [
   { path: '/oil', component: OilPrice },
   { path: '/dispatchfix', component: DispatchFix },
   { path: '/ecr', component: ECR },
-  { path: '/podetails', component: PODetails }
+  { path: '/podetails', component: PODetails },
+  { path: '/kworder', component: KWORDER }
 ]
 const router = new VueRouter({
   routes // (缩写) 相当于 routes: routes
